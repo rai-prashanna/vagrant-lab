@@ -1,1 +1,1 @@
-{"virtualbox":{"/vagrant":{"guestpath":"/vagrant","hostpath":"/home/lt-62/workspace/vagrant/ansible-galaxy","disabled":false,"__vagrantfile":true}}}
+{"virtualbox":{"/vagrant":{"guestpath":"/vagrant","hostpath":"/home/lt-62/workspace/vagrant/ansible-galaxy/ansible-galaxy","disabled":false,"__vagrantfile":true}}}
