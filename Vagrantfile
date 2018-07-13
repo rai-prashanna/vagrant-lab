@@ -7,7 +7,7 @@ Vagrant.require_version ">= 1.6.0"
 
 # Defaults for config options defined in CONFIG
 $num_instances = 3
-$instance_name_prefix = "centos"
+$instance_name_prefix = "prai"
 $enable_serial_logging = false
 $share_home = false
 $vm_gui = false
@@ -38,7 +38,7 @@ Vagrant.configure("2") do |config|
   # always use Vagrants insecure key
   config.ssh.insert_key = false
 
-  config.vm.box = "centos/7"
+  config.vm.box = "bento/ubuntu-17.10"
 
   # enable hostmanager
   config.hostmanager.enabled = true
@@ -49,7 +49,9 @@ Vagrant.configure("2") do |config|
   (1..$num_instances).each do |i|
     config.vm.define vm_name = "%s-%02d" % [$instance_name_prefix, i] do |config|
       config.vm.hostname = vm_name
-
+      config.vm.provision "docker",
+        images: ["hello-world"]
+        
       if $enable_serial_logging
         logdir = File.join(File.dirname(__FILE__), "log")
         FileUtils.mkdir_p(logdir)
@@ -65,7 +67,7 @@ Vagrant.configure("2") do |config|
 
       # foward Docker registry port to host for node 01
       if i == 1
-        config.vm.network :forwarded_port, guest: 5000, host: 5000
+        config.vm.network :forwarded_port, guest: 5000, host: 6000
       end
 
       config.vm.provider :virtualbox do |vb|
